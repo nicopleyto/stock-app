@@ -1,2 +1,12 @@
 <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
+
+<% if current_user %>
+<p> Hello <%= current_user.email %> </p>
+<p> Role <%= current_user.role %>
+ </p>
+ 
+<% else %>
+<p> You are not signed in </p>
+
+<% end %>
