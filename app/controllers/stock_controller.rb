@@ -2,7 +2,7 @@ class StockController < ApplicationController
   before_action :initialize_client
 
   def index
-    @price = @client.price('MSFT')
+    @quote = @client.quote('MSFT')
   end
 
   private
