@@ -1,0 +1,44 @@
+<%= render "devise/shared/error_messages", resources: resource %>
+
+<%= form_for(@user) do |f| %>
+
+<div class = "container">
+  <div class = "row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card rounded-3 mt-5">
+        <div class="card-body p-4 p-sm-5">
+
+          
+              <div class="field form-group mb-3">
+                    <%= f.label :email, :class => "form-label" %><br />
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control", :readonly => true %>
+              </div>
+
+              <div class="field form-group mb-3">
+                <%= f.label :password, :class => "form-label", :value => "New Password (#{@minimum_password_length} characters minimum)" %> <br />
+                <%= f.password_field :password, autocomplete: "new-password", :class => "form-control", :placeholder => "******" %>
+              </div>
+
+              <div class="field form-group mb-3">
+                <%= f.label :password_confirmation, :class => "form-label" %><br />
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control", :placeholder => "******" %>
+              </div>
+
+              <div class="actions d-grid mb-3 mt-4">
+                <%= f.submit "Update", :class => "btn btn-primary btn-login text-uppercase fw-bold" %>
+              </div>
+
+              <div class="actions d-grid mb-3 mt-4">
+                <%= link_to "Back to Traders", users_path, class: "btn btn-primary btn-login text-uppercase fw-bold" %>
+              </div>
+      
+
+        </div>
+      </div>
+
+    
+
+    </div>
+  </div>
+</div>
+<% end %>
