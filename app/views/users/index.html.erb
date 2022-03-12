@@ -1,0 +1,16 @@
+<div class="card mx-auto mt-5" style="width: 22rem;">
+  <div class="card-header d-flex justify-content-evenly">
+    <p>All Traders </p>
+    <%= link_to  new_user_path do%>
+        <i class="bi bi-person-plus"></i>
+    <% end %>
+  </div>
+  <ul class="list-group list-group-flush">
+    <% @traders.each do |trader| %>
+    <li class="list-group-item d-flex justify-content-between ">
+        <%= link_to  trader.email, user_path(trader) %>
+        <%=  trader.role %> 
+    </li>
+    <% end %>
+  </ul>
+</div>
