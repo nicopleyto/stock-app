@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum role: [:trader, :admin]
+
+  validates :state, presence: true
+  STATE = ["Pending", "Declined", "Approved"]
 end
