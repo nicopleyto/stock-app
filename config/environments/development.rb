@@ -37,7 +37,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_options { charset: "utf-8" }
+  config.action_mailer.default_options = { charset: "utf-8" }
 
   # mailer for devise development
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
@@ -48,11 +48,11 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "localhost:3000",
+    domain: "gmail.com",
     enable_starttls_auto: true,
     authentication: "plain",
-    user_name: Rails.application.credentials.mailer_email,
-    password: Rails.application.credentials.mailer_password
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASS']
   }
 
   # Print deprecation notices to the Rails logger.
