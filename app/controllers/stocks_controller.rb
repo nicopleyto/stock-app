@@ -1,4 +1,3 @@
-#pluralize stocks controller and all associated files
 #create stock model with symbol, company_name, company_description
 #create method to populate model, store methods temporarily in seeds.rb (ask sir where to place the method and how to initialize client)
 #edit the necessary controller methods
