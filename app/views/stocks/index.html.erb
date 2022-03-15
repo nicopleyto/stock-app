@@ -9,11 +9,11 @@
             <div class="card h-100 w-100 my-3">
         
                 <%= stock.symbol %> 
-                <%= stock.company_name %>
-                <%= stock.change_percent_s %>
-                <%= stock.latest_price%>
+                <%= stock.corp_name %>
+                <%= stock.access_quote.change_percent_s %>
+                <%= stock.access_quote.latest_price%>
 
-                <%#= link_to 'Show', stock_path(:symbol => stock.symbol) %>
+                <%= link_to 'Show', stock_path(stock.id) %>
             </div>
         </div>
     <% end %>
