@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   def update_state
     @user = User.find(params[:id])
     @user.update(state: params[:state])
-    redirect_to :users, notice: "#{@user.email} changed status to #{@user.state}"
+    redirect_to users_request_path, notice: "#{@user.email} has been #{@user.state}"
   end
 
   def show_request
