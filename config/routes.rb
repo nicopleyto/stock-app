@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'transactions/index'
   get '/users/request/', to: 'users#show_request', as: 'users/request'
   root 'home#index'
   devise_for :users, :path_prefix => 'devise'
