@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'stock/index'
+  get 'current_user_transactions/index'
+  get 'transactions/index'
+  get '/users/request/', to: 'users#show_request', as: 'users/request'
   root 'home#index'
   devise_for :users, :path_prefix => 'devise'
   resources :users, only: [:index, :show, :edit, :update, :create, :new]
