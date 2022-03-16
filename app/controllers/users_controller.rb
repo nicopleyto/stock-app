@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  before_action :verify_is_admin, only: [:index, :edit, :show, :create, :new]
+  before_action :verify_is_admin, only: [:index, :edit, :show, :show_request, :create, :new]
+  before_action :approved_trader, only: []
   
   def index
     @users = User.all
-    @traders = @users.where(role: "trader")
+    @traders = @users.where(role: "trader", state: "Approved")
   end
 
   def show
@@ -39,10 +40,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_state
+    @user = User.find(params[:id])
+    @user.update(state: params[:state])
+    redirect_to users_request_path, notice: "#{@user.email} has been #{@user.state}"
+  end
+
+  def show_request
+    @users = User.all
+    @request =  @users.where(role: "trader", state: "Pending")
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :state)
   end
 
   def verify_is_admin
@@ -53,4 +65,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def approved_trader
+    if current_user.where(role: "trader", state: "Approved")
+       return
+    else
+       redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
+    end
+  end
 end

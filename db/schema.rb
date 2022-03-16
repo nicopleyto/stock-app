@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_071034) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "role", default: 0
+    t.string "state", default: "Pending", null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

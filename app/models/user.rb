@@ -6,4 +6,7 @@ class User < ApplicationRecord
          :confirmable
 
   enum role: [:trader, :admin]
+
+  validates :state, presence: true
+  STATE = ["Pending", "Declined", "Approved"]
 end
