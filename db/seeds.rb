@@ -11,7 +11,8 @@ User.create(
     email: Rails.application.credentials.admin_email, 
     password: Rails.application.credentials.admin_password, 
     password_confirmation: Rails.application.credentials.admin_password, 
-    role: 'admin'
+    role: 'admin',
+    confirmed_at: Time.now
 )
 
 #seed stocks database with default values
@@ -27,7 +28,6 @@ stocks_collection.each do |stock|
     Stock.create(
         symbol: stock, 
         corp_name: client.company(stock).company_name, 
-        corp_description: client.company(stock).description, 
-        corp_logo: client.logo(stock).url
+        corp_description: client.company(stock).description
     )
 end
