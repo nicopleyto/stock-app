@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_16_130146) do
+ActiveRecord::Schema.define(version: 2022_03_15_071034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,16 +19,6 @@ ActiveRecord::Schema.define(version: 2022_03_16_130146) do
     t.string "symbol"
     t.string "corp_name"
     t.text "corp_description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "transactions", force: :cascade do |t|
-    t.string "stock_symbol"
-    t.boolean "transaction_type_buy?"
-    t.decimal "order_quantity"
-    t.decimal "price_during_transaction"
-    t.decimal "total_stock_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -42,10 +32,10 @@ ActiveRecord::Schema.define(version: 2022_03_16_130146) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "role", default: 0
+    t.string "state", default: "Pending", null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string "state", default: "Pending", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

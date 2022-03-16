@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :verify_is_admin, only: [:index, :edit, :show, :show_request, :create, :new]
+  before_action :verify_is_admin, only: [:index, :edit, :show, :create, :new]
   before_action :approved_trader, only: []
   
   def index
@@ -38,17 +38,6 @@ class UsersController < ApplicationController
         format.html { render :edit }
       end
     end
-  end
-
-  def update_state
-    @user = User.find(params[:id])
-    @user.update(state: params[:state])
-    redirect_to users_request_path, notice: "#{@user.email} has been #{@user.state}"
-  end
-
-  def show_request
-    @users = User.all
-    @request =  @users.where(role: "trader", state: "Pending")
   end
 
   private

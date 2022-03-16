@@ -6,14 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#admin account
-User.create(
-    email: Rails.application.credentials.admin_email, 
-    password: Rails.application.credentials.admin_password, 
-    password_confirmation: Rails.application.credentials.admin_password, 
-    role: 'admin',
-    confirmed_at: Time.now
-)
+User.create(email: Rails.application.credentials.admin_email, password: Rails.application.credentials.admin_password, password_confirmation: Rails.application.credentials.admin_password, role: 'admin')
 
 #seed stocks database with default values
 stocks_collection = ['AMZN', 'TSLA', 'AAPL', 'FB', 'MSFT', 'NVDA', 'BABA', 'GOOG', 'PYPL', 'NFLX', 'ABNB', 'UBER']
@@ -25,9 +18,5 @@ client = IEX::Api::Client.new(
 )
 
 stocks_collection.each do |stock|
-    Stock.create(
-        symbol: stock, 
-        corp_name: client.company(stock).company_name, 
-        corp_description: client.company(stock).description
-    )
+    Stock.create(symbol: stock, corp_name: client.company(stock).company_name, corp_description: client.company(stock).description)
 end
