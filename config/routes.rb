@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'current_user_transactions/index'
   get 'transactions/index'
   get '/users/request/', to: 'users#show_request', as: 'users/request'
   root 'home#index'

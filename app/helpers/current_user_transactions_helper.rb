@@ -1,0 +1,2 @@
+module CurrentUserTransactionsHelper
+end
