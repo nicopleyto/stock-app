@@ -1,0 +1,20 @@
+<h1>Stock#index</h1>
+<p>Find me in app/views/stock/index.html.erb</p>
+<%#=@stocks%>
+
+<div class = "container">
+  <section class = "row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 g-4">
+    <% @stocks.each do |stock| %>
+        <div class = "col">
+            <div class="card h-100 w-100 my-3">
+        
+                <%= stock.symbol %> 
+                <%= stock.corp_name %>
+                <%= stock.access_quote.change_percent_s %>
+                <%= stock.access_quote.latest_price%>
+
+                <%= link_to 'Show', stock_path(stock.id) %>
+            </div>
+        </div>
+    <% end %>
+</div>
