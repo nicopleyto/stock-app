@@ -4,6 +4,6 @@ class CurrentUserTransactionsController < ApplicationController
   end
 
   def show
-    #@transaction = current_user.transactions(params[:id])
+    #@transaction = current_user.transactions.find(params[:id])
   end
 end
