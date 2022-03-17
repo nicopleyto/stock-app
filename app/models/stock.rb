@@ -1,11 +1,13 @@
 class Stock < ApplicationRecord
     def access_quote
-        @client = IEX::Api::Client.new(
-            publishable_token: Rails.application.credentials.publishable_token,
-            secret_token: Rails.application.credentials.secret_token,
-            endpoint: 'https://cloud.iexapis.com/v1'
-        )
-
+        initialize_client
         @client.quote(self.symbol)
+    end
+
+    private
+
+    def initialize_client
+        #token credentials can be found in config/initializers/iex_client.rb
+        @client ||= IEX::Api::Client.new
     end
 end
