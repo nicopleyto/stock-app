@@ -6,7 +6,6 @@
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
         <li class="nav-item">
           <%= link_to 'Home', root_path, :class => "nav-link" %>
         </li>
@@ -14,9 +13,8 @@
         <li class="nav-item">
           <%= link_to 'Stocks', stocks_path, :class => "nav-link" %>
         </li>
-        
-        <% if current_user %>
 
+        <% if current_user %>
           <% if current_user.admin? %>
 
             <li class="nav-item">
@@ -28,46 +26,45 @@
             </li>
 
           <% else %>
+          #for traders view
           <%#for traders view %>
 
             <li class="nav-item">
+              <%= link_to 'User', root_path, :class => "nav-link" %>
               <%= link_to 'Portfolio', root_path, :class => "nav-link" %>
             </li>
+            <% end %>
 
+            <%#li class="nav-item">
+              <%#= link_to 'Entries', entries_path, :class => "nav-link" %>
+            <%#/li>
           <% end %>
-
+            <%# <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li> %>
         <% end %>
 
       </ul>
-
       <ul class="navbar-nav">
         <%if user_signed_in? %>
-
             <li class="nav-item nav-link active">
                 Welcome, <%=current_user.email%>!
             </li>
-
             <li class="nav-item">
                 <%= link_to 'Edit Profile', edit_user_registration_path, :class => "nav-link" %>
             </li>
-
             <li class="nav-item">
                 <%= link_to 'Log Out', destroy_user_session_path, method: :delete, :class => "nav-link" %>
             </li>
-
         <%else%>
-
             <li class="nav-item">
                 <%= link_to 'Sign Up', new_user_registration_path, :class => "nav-link active" %>
             </li>
-
             <li class="nav-item">
                 <%= link_to 'Sign In', new_user_session_path, :class => "nav-link active" %>
             </li>
-
         <%end%>
       </ul>
-
     </div>
   </div>
 </nav>
