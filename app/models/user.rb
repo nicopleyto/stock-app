@@ -11,4 +11,5 @@ class User < ApplicationRecord
   STATE = ["Pending", "Declined", "Approved"]
 
   has_many :transactions
+  has_many :portfolio_stocks
 end
