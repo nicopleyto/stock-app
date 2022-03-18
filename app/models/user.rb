@@ -9,4 +9,7 @@ class User < ApplicationRecord
 
   validates :state, presence: true
   STATE = ["Pending", "Declined", "Approved"]
+
+  has_many :transactions
+  has_many :portfolio_stocks
 end
