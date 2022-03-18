@@ -11,8 +11,9 @@ User.create(
     email: Rails.application.credentials.admin_email, 
     password: Rails.application.credentials.admin_password, 
     password_confirmation: Rails.application.credentials.admin_password, 
+    state: 'Approved',
     role: 'admin',
-    confirmed_at: Time.now
+    confirmed_at: DateTime.now
 )
 
 #seed stocks database with default values
