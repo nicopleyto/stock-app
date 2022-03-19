@@ -1,10 +1,10 @@
 <div class="card mx-auto mt-5 " style="width: 40rem;">
-  <div class="card-header d-flex justify-content-evenly">
-    <h4>Requests</h4>
-    
-    <%= link_to "Declined",  declined_requests_path, class:"btn btn-info position-absolute top-1 end-0 mx-4 "%>
+
+  <div class="card-header text-center">
+    <h4>Declined Traders Requests</h4>
  
   </div>
+
   <ul class="list-group list-group-flush overflow-auto container" style="min-height: 20rem; max-height: 35rem;">
     <% if @request.empty? %>
       <h4 class="text-center mt-5 text-secondary">There is currently no request yet.</h4>
@@ -21,7 +21,8 @@
           
           <div class="text-center btn-group col">
 
-            <%= link_to "Decline", pending_request_path(request, state: "Declined"), method: :patch, class: "btn btn-danger mx-2" %>
+            <%= link_to "Delete",  declined_request_path(request), method: :delete, data: { confirm: "Are you sure you want to delete #{request.email}'s application?" }, class: "btn btn-danger mx-2" %>
+        
 
             <%= link_to "Approve", pending_request_path(request, state: "Approved"), method: :patch, class: "btn btn-success mx-2" %>
             
@@ -29,4 +30,11 @@
       </li>
     <% end %>
   </ul>
+
+  <div class="card-footer text-center">
+  
+    <%= link_to "Back to Pending Requests", pending_requests_path, class: "btn btn-primary mx-2" %>
+            
+  </div>
+
 </div>
