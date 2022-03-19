@@ -1,20 +1,107 @@
-<div class="card border-info mx-auto mb-3 text-warning mt-5" style="max-width: 28rem;">
+<div class="card border-info mx-auto text-warning mt-5 text-dark" style="width: 42rem;">
 
-        <h4 class="card-header text-info text-center"><%= user.email %></h4>
+        <h2 class="card-header text-center bg-info bg-opacity-25">
+            <%= user.email %>
+            <div class='btn btn-dark border rounded-pill position-absolute top-1 end-0 mx-4 w-10 h-10'>
+                <%= user.portfolio_stocks.count %> stocks
+            </div>
+            
+        </h2>
 
-        <div class="card-body text-info">
+        <div class="card-body overflow-auto ps-4" style="min-height: 20rem; max-height: 35rem;">
 
-            <h5 class="card-title text-center">
-                <%= user.role %></h5>
-            <p class="card-text"></p>
+            <div class="card-title d-flex">
+                <strong>
+                    Date Added: 
+                </strong>
+                <p class="ms-2">
+                    <%= user.created_at.strftime("%A %B %d, %Y") %>
+                </p>
+            </div>
 
+            <div class="card-title d-flex">
+                <strong>
+                    Last profile update: 
+                </strong>
+                <p class="ms-2">
+                    <%= user.updated_at.strftime("%A %B %d, %Y") %>
+                </p>
+            </div>
+
+            <div class="card-title d-flex">
+                <strong>
+                    Role:
+                </strong>
+                <p class="ms-2">
+                    <%= user.role %>
+                </p>
+            </div>
+
+            <div class="card-title d-flex ">
+                <strong class="mt-2">
+                    Total Transactions:
+                </strong>
+                <%= link_to  transaction_path(user), class: "btn btn-dark rounded-circle mx-3 mb-2" do%>
+                    <%= user.transactions.count %>
+                <% end %>   
+            </div>
+
+            <div class="card-title d-flex">
+                <strong>
+                    Last Transaction:
+                </strong>
+                <p class="ms-2">
+                    <% if user.transactions.last %>
+                        <%= user.transactions.last.stock_symbol%>,
+                        <% if user.transactions.last.transaction_type_buy? %>
+                        Activity: Buy,
+                        <% else %>
+                        Activity: Sell,
+                        <% end %>
+                        <%= user.transactions.last.created_at.strftime("%A %B %d, %Y") %>
+                    <% end %>
+                </p>
+            </div>
+
+            <div class="card-title">
+                <strong>
+                    Stocks:
+                </strong>
+                <div class="container ms-2">
+                    <div class = "row overflow-auto" style="min-height: 10rem; max-height: 15rem;">
+                        <% user.portfolio_stocks.each do |stock| %>
+                            
+                            <div class="card my-1 mx-auto col-5">
+                               
+                                <div>        
+                                    <%= stock.stock_symbol %> 
+                                </div>
+                                
+                                <div class="d-flex ">
+                                    <strong>Qty:</strong>
+                                    <%= stock.total_quantity %>
+                                </div>  
+                                
+                                <div>
+                                    <%= stock.created_at.strftime("%A %B %d, %Y")%>
+                                </div>
+
+                            </div>
+                        
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+                
         </div>
 
-        <div class="card-footer d-flex justify-content-evenly ">
+        <div class="card-footer btn-group ">
     
-            <%= link_to "Edit", edit_user_path(user), class:  "btn btn-info" %>
-            
-            <%= link_to "Back to Traders", users_path, class:  "btn btn-info" %>
+            <%= link_to "Edit", edit_user_path(user), class:  "btn btn-info mx-3" %>
+
+            <%= link_to "Delete",  user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete #{user.email}'s profile?" }, class: "btn btn-danger mx-3" %>
+
+            <%= link_to "Back", users_path, class:  "btn btn-secondary mx-3" %>
             
         </div>
 </div>
