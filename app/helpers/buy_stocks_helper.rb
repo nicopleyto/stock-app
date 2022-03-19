@@ -1,0 +1,2 @@
+module BuyStocksHelper
+end
