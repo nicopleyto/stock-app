@@ -8,7 +8,7 @@
             <div class="card h-100 w-100 my-3">
         
                 <%= stock.stock_symbol %> 
-                <%= stock.current_stock_valuation %>
+                <%= stock.access_quote.latest_price %>
                 <%= stock.total_quantity %>
                 <%= stock.total_value%>
 
