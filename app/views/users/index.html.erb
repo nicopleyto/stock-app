@@ -1,16 +1,25 @@
-<div class="card mx-auto mt-5" style="width: 22rem;">
-  <div class="card-header d-flex justify-content-evenly">
-    <p>All Traders </p>
-    <%= link_to  new_user_path do%>
-        <i class="bi bi-person-plus"></i>
-    <% end %>
+<div class="card mx-auto mt-5 text-center" style="width: 30rem;">
+
+  <div class="card-header d-flex justify-content-center">
+    <h4>All Traders </h4>
+    <%= link_to "Add Trader", new_user_path, class:"btn btn-info position-absolute top-1 end-0 mx-4 "%>
+       
   </div>
-  <ul class="list-group list-group-flush">
+
+  <ul class="list-group list-group-flush overflow-auto container" style="min-height: 20rem; max-height: 35rem;">
     <% @traders.each do |trader| %>
-    <li class="list-group-item d-flex justify-content-between ">
-        <%= link_to  trader.email, user_path(trader) %>
-        <%=  trader.role %> 
-    </li>
+      <li class="list-group-item d-flex justify-content-between ">
+          <%= link_to  trader.email, user_path(trader), class: "btn btn-outline-light text-dark col"%>
+          
+          <span class="ms-2 mt-2 col text-center">
+            <%=  trader.role %> 
+          </span>
+
+          <span class="ms-2 col text-center btn btn-dark border rounded-pill">
+             <%= trader.portfolio_stocks.count %> stocks
+          </span>
+      </li>
     <% end %>
   </ul>
+
 </div>

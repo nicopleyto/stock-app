@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.state = "Approved"
     @user.skip_confirmation!
     if @user.save
       redirect_to @user, notice: 'New trader was successfully created.'
@@ -29,7 +30,12 @@ class UsersController < ApplicationController
     end
   end
 
-
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path, notice: "You successfully deleted #{@user.email}'s profile."
+  end
+ 
   private
 
   def user_params
