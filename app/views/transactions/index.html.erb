@@ -1,2 +1,152 @@
-<h1>Transactions#index</h1>
-<p>Find me in app/views/transactions/index.html.erb</p>
+<div class="card mx-auto mt-4 " style="width: 45rem;">
+    <div class="card-header d-flex justify-content-evenly bg-dark text-light">
+      <h4>Transactions</h4>
+    </div>
+
+    <div class="position-relative mt-1 mb-4 bg-transparent" style="height: 2rem;">
+        <div class="btn-group position-fix top-50 start-50 translate-middle" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-dark" data-bs-target="#carouselExampleIndicators" style="width: 6rem;" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">All</button>
+            <button type="button" class="btn btn-outline-dark mx-1" style="width: 6rem;" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">Today</button>
+            <button type="button" class="btn btn-outline-dark" style="width: 6rem;" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">Yesterday</button>
+        </div>
+    </div>
+
+  <ul class="list-group list-group-flush overflow-auto container p-1" style="min-height: 20rem; max-height: 35rem;">
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <% @all_transactions.each do |all_transaction| %>
+                    <li class="list-group-item p-1">
+
+                        <% if @all_transactions.empty? %>
+                            <h4 class="text-center mt-5 text-secondary">There is currently no request yet.</h4>
+                        <% end %>
+                
+                        <%= link_to transaction_path(all_transaction), class: "btn btn-outline-light text-dark text-start ps-3 w-100"  do%>
+
+                            <div >
+                                <div>
+                                    <strong>
+                                        <%= User.find_by(id: all_transaction.user_id).email %> 
+                                    </strong>
+
+                                    <% if all_transaction.transaction_type_buy? %> 
+                                    bought
+                                    <% else %>
+                                    sold
+                                    <% end %>
+                                    a total of 
+                                    <%= all_transaction.order_quantity %> 
+                                    <%= all_transaction.stock_symbol %> 
+                                    shares for
+                                    <%= all_transaction.price_during_transaction %>
+                                    each, or
+                                    <%=  all_transaction.total_stock_amount %>
+                                    in all.
+                                </div>
+
+                                <div class="text-dark ps-3", style="--bs-text-opacity: .5;">
+                                    <%=  distance_of_time_in_words_to_now(all_transaction.created_at) %> ago
+                                    <%=  all_transaction.created_at.strftime("%A %B %d, %Y %I:%M %p") %>
+                                </div>
+                            </div>
+
+                        <% end %>
+
+                    </li>
+                <% end %>
+            </div>
+
+            <div class="carousel-item">
+                <% @todays_transactions.each do |todays_transaction| %>
+                    <li class="list-group-item p-1">
+
+                        <% if @todays_transactions.empty? %>
+                            <h4 class="text-center mt-5 text-secondary">There is currently no request yet.</h4>
+                        <% end %>
+                
+                        <%= link_to transaction_path(todays_transaction), class: "btn btn-outline-light text-dark text-start ps-3 w-100" do%>
+
+                            <div >
+                                <div>
+                                    <strong>
+                                        <%= User.find_by(id: todays_transaction.user_id).email %> 
+                                    </strong>
+                                    
+                                    <% if todays_transaction.transaction_type_buy? %> 
+                                    bought
+                                    <% else %>
+                                    sold
+                                    <% end %>
+                                    a total of 
+                                    <%= todays_transaction.order_quantity %> 
+                                    <%= todays_transaction.stock_symbol %> 
+                                    shares for
+                                    <%= todays_transaction.price_during_transaction %>
+                                    each, or
+                                    <%=  todays_transaction.total_stock_amount %>
+                                    in all.
+                                </div>
+
+                                <div class="text-dark ps-3", style="--bs-text-opacity: .5;">
+                                    <%= distance_of_time_in_words_to_now(todays_transaction.created_at) %> ago 
+                                    <%= todays_transaction.created_at.strftime("%I:%M %p") %>
+                                </div>
+                            </div>
+                        
+                        <% end %>
+
+                    </li>
+                <% end %>
+            </div>
+
+            <div class="carousel-item">
+                <% @yesterdays_transactions.each do |yesterdays_transaction| %>
+                    <li class="list-group-item p-1">
+                    
+                        <% if @yesterdays_transactions.empty? %>
+                            <h4 class="text-center mt-5 text-secondary">There is currently no request yet.</h4>
+                        <% end %>
+
+                        <%= link_to transaction_path(yesterdays_transaction), class: "btn btn-outline-light text-dark text-start ps-3 w-100" do%>
+
+                            <div>
+                                <div>
+                                    <strong>
+                                        <%= User.find_by(id: yesterdays_transaction.user_id).email %> 
+                                    </strong>
+                                    
+                                    <% if yesterdays_transaction.transaction_type_buy? %> 
+                                    bought
+                                    <% else %>
+                                    sold
+                                    <% end %>
+                                    a total of 
+                                    <%= yesterdays_transaction.order_quantity %> 
+                                    <%= yesterdays_transaction.stock_symbol %> 
+                                    shares for
+                                    <%= yesterdays_transaction.price_during_transaction %>
+                                    each, or
+                                    <%= yesterdays_transaction.total_stock_amount %>
+                                    in all.
+                                </div>
+
+                                <div class="text-dark ps-3", style="--bs-text-opacity: .5;">
+                                    <%=  distance_of_time_in_words_to_now(yesterdays_transaction.created_at) %> ago,
+                                    <%=  yesterdays_transaction.created_at.strftime("%A %B %d, %Y - %I:%M %p") %>   
+                                </div>
+                            </div>
+
+                        <% end %>
+
+                    </li>
+                <% end %>
+            </div>
+
+        </div>
+    </div>
+  </ul>
+</div>
