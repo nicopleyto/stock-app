@@ -1,0 +1,54 @@
+<div class="card mx-auto mt-5 " style="width: 35rem;">
+
+    <div class="card-header card-title bg-dark text-light">
+        Transaction Id 
+        <%= @transaction.id %> 
+    </div>
+
+    <div class="card-body ps-4">
+        <h5 class="card-title">
+            <%= User.find_by(id: @transaction.user_id).email %> 
+        </h5>
+
+        <div class="ps-3">
+
+            <strong>Activity:</strong>
+                <p class="card-text">
+                    <% if @transaction.transaction_type_buy? %> 
+                    Bought
+                    <% else %>
+                    Sold
+                    <% end %>
+                    <%= @transaction.stock_symbol %> 
+                    shares
+                </p>
+            <strong>Quantity:</strong>
+                <p class="card-text">
+                    <%= @transaction.order_quantity %> 
+                </p>
+            <strong>Amount:</strong>
+                <p class="card-text">
+                    <%= @transaction.price_during_transaction %> 
+                </p>
+            <strong>Total amount:</strong>
+                <p class="card-text">
+                    <%= @transaction.total_stock_amount %> 
+                </p>
+            <div class="d-flex">
+                <strong>Time:</strong>
+                    <p class="card-text text-dark ps-2", style="--bs-text-opacity: .75;">
+                        <%=  distance_of_time_in_words_to_now(@transaction.created_at) %> ago
+                    </p>
+            </div>
+            
+                <p class="card-text mb-5">
+                    <%=  @transaction.created_at.strftime("%A %B %d, %Y %I:%M %p") %> 
+                </p>
+            <div class="d-flex justify-content-center">
+                <%= link_to "Return to all transactions", transactions_path, class: "btn btn-primary" %>
+            </div>
+        </div>
+
+    </div>
+
+</div>
