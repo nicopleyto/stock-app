@@ -69,7 +69,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :mailjet_api
-  config.action_mailer.default_url_options = { host: '0.0.0.0:3000' }
+  config.action_mailer.default_url_options = { host: 'vngneonexchange.herokuapp.com' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
