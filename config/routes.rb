@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :edit, :update, :create, :new]
 
 
-  resources :buy_stocks, only: [:edit, :update]
-  resources :portfolio_stocks, only: [:index, :show]
+
+  resources :portfolio_stocks, only: [:index, :show, :update, :edit]
   resources :current_user_transactions, only: [:index, :show]
   resources :transactions, only: [:index, :show]
   resources :stocks, only: [:index, :show]

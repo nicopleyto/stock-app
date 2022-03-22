@@ -1,0 +1,39 @@
+<%= form_with model: @portfolio_stock do |form| %>
+  <% if @portfolio_stock.errors.any? %>
+    <% @portfolio_stock.errors.each do |error| %>
+
+      <div class="container">
+        <div class="alert alert-danger alert-dismissible fade show mx-auto col-10 text-center mb-1 mt-4" role="alert">
+          <%= error.full_message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    
+    <% end %>
+  <% end %>
+
+  <div class ="container">
+    <section class = "col-8 mx-auto">
+      <div class = "card rounded-3 mt-5">
+        <div class="card-body p-4 p-sm-5">
+
+          <div class="field form-group mb-3">
+            <%= form.label :symbol %>
+            <%= form.text_field :symbol, :class => "form-control", :value => @portfolio_stock.symbol %>
+          </div>
+
+          <div class="field form-group mb-3">
+            <%= form.label :total_quantity %>
+            <%= form.number_field :total_quantity, step: :any, :class => "form-control" %>
+          </div>
+
+          <div class="actions d-grid mb-3 mt-4">
+            <%= form.submit :class => "btn btn-primary btn-login text-uppercase fw-bold"%>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+<% end %>

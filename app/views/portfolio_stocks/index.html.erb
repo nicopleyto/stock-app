@@ -7,10 +7,10 @@
         <div class = "col">
             <div class="card h-100 w-100 my-3">
         
-                <%= stock.stock_symbol %> 
+                <%= stock.symbol %> 
                 <%= stock.access_quote.latest_price %>
                 <%= stock.total_quantity %>
-                <%= stock.total_value%>
+                <%#= stock.total_value%>
 
                 <%= link_to 'Show', portfolio_stock_path(stock.id) %>
             </div>
