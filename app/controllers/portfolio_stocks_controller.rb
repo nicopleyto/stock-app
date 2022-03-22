@@ -9,12 +9,15 @@ class PortfolioStocksController < ApplicationController
 
   def edit #similar to edit action, set resource to be updated here (buy stock)
     stocksymbol = params[:stocksymbol]
-    @portfolio_stock = current_user.portfolio_stocks.find_or_create_by(:symbol => stocksymbol)
+    #@portfolio_stock = current_user.portfolio_stocks.find_or_create_by(:symbol => stocksymbol)
+    @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol) || current_user.portfolio_stocks.create(:symbol => stocksymbol)
+    
   end
 
   def update #similar to update action, add incremented quantity here (confirm purchase)
     stocksymbol = params[:stocksymbol]
-    @portfolio_stock = current_user.portfolio_stocks.find_or_create_by(:symbol => stocksymbol) #returns duplicate instance. must refactor
+    #@portfolio_stock = current_user.portfolio_stocks.find_or_create_by(:symbol => stocksymbol) #returns duplicate instance. must refactor
+    @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol) || current_user.portfolio_stocks.create(:symbol => stocksymbol)
 
     if @portfolio_stock.update(portfolio_stock_params)
       redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
