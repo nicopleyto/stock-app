@@ -7,4 +7,10 @@ class UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: "Your account had been approved"
   end
+
+  def decline_email
+    @user = params[:user]
+
+    mail to: @user.email, subject: "Your account had been declined"
+  end
 end
