@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :portfolio_stocks, only: [:index, :show, :update, :edit]
+  resources :portfolio_stocks
   resources :current_user_transactions, only: [:index, :show]
   resources :transactions, only: [:index, :show]
   resources :stocks, only: [:index, :show]

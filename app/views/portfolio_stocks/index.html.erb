@@ -10,7 +10,7 @@
                 <%= stock.symbol %> 
                 <%= stock.access_quote.latest_price %>
                 <%= stock.total_quantity %>
-                <%#= stock.total_value%>
+                <%= stock.total_value%>
 
                 <%= link_to 'Show', portfolio_stock_path(stock.id) %>
             </div>

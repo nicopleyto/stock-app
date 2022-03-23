@@ -1,0 +1,16 @@
+<div class = "container">
+  <section class = "row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 g-4">
+        <div class = "col">
+            <div class="card h-100 w-100 my-3">
+
+                <%= @portfolio_stock.symbol %> 
+                <%= @portfolio_stock.access_quote.latest_price %>
+                <%= @portfolio_stock.total_quantity %>
+                <%= @portfolio_stock.total_value%>
+
+                <%= link_to 'Buy Stock', edit_portfolio_stock_path(:stocksymbol => @portfolio_stock.symbol)%>
+                <%= link_to 'Back', portfolio_stocks_path %>
+
+            </div>
+        </div>
+</div>
