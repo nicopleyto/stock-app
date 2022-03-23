@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users, :path_prefix => 'devise'
   resources :users, only: [:index, :show, :edit, :update, :create, :new]
 
-  resources :portfolio_stocks, only: [:index, :show]
+
+
+  resources :portfolio_stocks
   resources :current_user_transactions, only: [:index, :show]
   resources :transactions, only: [:index, :show]
   resources :stocks, only: [:index, :show]
