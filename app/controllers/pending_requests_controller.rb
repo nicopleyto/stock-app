@@ -11,7 +11,7 @@ class PendingRequestsController < ApplicationController
     def update
         @user = User.find(params[:id])
         if @user.update(state: params[:state])
-          UserMailer.with(user: @user).approved_email.deliver_now
+          UserMailer.with(user: @user).approve_email.deliver_now
           redirect_to pending_requests_path, notice: "#{@user.email} has been #{@user.state}"
         end
     end
