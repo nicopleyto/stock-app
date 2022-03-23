@@ -22,8 +22,9 @@ class PortfolioStocksController < ApplicationController
     stocksymbol = portfolio_stock_params[:symbol]
     @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
 
+    @portfolio_stock.total_quantity += portfolio_stock_params[:total_quantity].to_d #needs refactoring so submitting form can increment the amount
+
     if @portfolio_stock.update(portfolio_stock_params)
-      @portfolio_stock.total_quantity += portfolio_stock_params[:total_quantity].to_d
       redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
     else
       render :edit
