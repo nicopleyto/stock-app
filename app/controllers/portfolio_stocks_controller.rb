@@ -21,8 +21,6 @@ class PortfolioStocksController < ApplicationController
   def update #similar to update action, add incremented quantity here (confirm purchase)
     stocksymbol = portfolio_stock_params[:symbol]
     @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
-    #@portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol) || current_user.portfolio_stocks.new(:symbol => stocksymbol)
-
 
     if @portfolio_stock.update(portfolio_stock_params)
       @portfolio_stock.total_quantity += portfolio_stock_params[:total_quantity].to_d
@@ -50,13 +48,4 @@ class PortfolioStocksController < ApplicationController
   def portfolio_stock_params
     params.require(:portfolio_stock).permit(:symbol, :total_quantity)
   end
-
-  # def check_portfolio_for_stock(stocksymbol)
-  #   if current_user.portfolio_stocks.exists?(:symbol => stocksymbol)
-  #     @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
-  #   else
-  #     @portfolio_stock = 
-  #   end
-  # end
-
 end
