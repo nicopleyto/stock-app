@@ -10,6 +10,7 @@ class PendingRequestsController < ApplicationController
 
     def update
         @user = User.find(params[:id])
+        
         if @user.update(state: params[:state])
           UserMailer.with(user: @user).approve_email.deliver_now if params[:state] == "Approved"
           UserMailer.with(user: @user).decline_email.deliver_now if params[:state] == "Declined"
