@@ -10,5 +10,8 @@ class PortfolioStock < ApplicationRecord
 
     def purge_zero_quantity_stock
         #add code for deleting record if record has 0 quantity
+        if self.total_quantity = 0
+            self.destroy
+        end
     end
 end
