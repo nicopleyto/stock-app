@@ -2,9 +2,21 @@ class UserMailer < ApplicationMailer
   # Important for production
   default from: "vnggrpstockapp@gmail.com"
 
-  def approved_email
+  def approve_email
     @user = params[:user]
 
     mail to: @user.email, subject: "Your account had been approved"
+  end
+
+  def decline_email
+    @user = params[:user]
+
+    mail to: @user.email, subject: "Your account had been declined"
+  end
+
+  def destroy_account_email
+    @user = params[:user]
+
+    mail to: @user.email, subject: "Your account had been deleted"
   end
 end
