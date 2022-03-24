@@ -10,7 +10,9 @@ class DeclinedRequestsController < ApplicationController
 
     def destroy
         @user = User.find(params[:id])
+        
         if @user.destroy
+          UserMailer.with(user: @user).destroy_account_email.deliver_now
           redirect_to declined_requests_path, notice: "You successfully deleted #{@user.email}'s application."
         end
     end
