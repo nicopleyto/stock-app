@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+
+.card-effects:hover{
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    background-color: coral;
+    color: black;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 9px;               /* width of the entire scrollbar */
+}
+.scroll::-webkit-scrollbar-track {
+    background: white;        /* color of the tracking area */
+}
+.scroll::-webkit-scrollbar-thumb {
+    background-color: black;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+}
