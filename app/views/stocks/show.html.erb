@@ -12,7 +12,7 @@
                 <%= @stock.access_quote.latest_price%>
                 <%= @stock.corp_description %>
 
-                <%= link_to 'Buy Stock', edit_portfolio_stock_path(:stocksymbol => @stock.symbol)%>
+                <%= link_to 'Buy Stock', buy_portfolio_stock_path(:stocksymbol => @stock.symbol)%>
                 <%= link_to 'Back', stocks_path %>
 
             </div>
