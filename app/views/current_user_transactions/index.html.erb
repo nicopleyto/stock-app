@@ -1,2 +1,53 @@
-<h1>CurrentUserTransactions#index</h1>
-<p>Find me in app/views/current_user_transactions/index.html.erb</p>
+<div class="card mx-auto mt-4 " style="width: 45rem;">
+    <div class="card-header d-flex justify-content-evenly bg-dark text-light">
+      <h4>My Transactions</h4>
+    </div>
+
+
+    <div class="list-group list-group-flush overflow-auto scroll container p-1" style="min-height: 20rem; max-height: 35rem;">
+
+
+        <% if   @transactions.empty? %>
+            <h4 class="text-center mt-5 text-secondary">No transaction has taken place yet.</h4>
+        <% end %>
+
+                    <%   @transactions.each do |transaction| %>
+                        <li class="list-group-item p-1">
+                    
+                            <%= link_to transaction_path(transaction), class: "btn btn-outline-light text-dark text-start ps-3 w-100"  do%>
+
+                                <div >
+                                    <div>
+                                        <strong>
+                                            <%= User.find_by(id: transaction.user_id).email %> 
+                                        </strong>
+
+                                        <% if transaction.transaction_type_buy? %> 
+                                        bought
+                                        <% else %>
+                                        sold
+                                        <% end %>
+                                        a total of 
+                                        <%= transaction.order_quantity %> 
+                                        <%= transaction.stock_symbol %> 
+                                        shares for
+                                        <%= transaction.price_during_transaction %>
+                                        each, or
+                                        <%=  transaction.total_stock_amount %>
+                                        in all.
+                                    </div>
+
+                                    <div class="text-dark ps-3", style="--bs-text-opacity: .5;">
+                                        <%=  distance_of_time_in_words_to_now(transaction.created_at) %> ago
+                                        <%=  transaction.created_at.strftime("%A %B %d, %Y %I:%M %p") %>
+                                    </div>
+                                </div>
+
+                            <% end %>
+
+                        </li>
+                    <% end %>
+                
+    </div>
+</div>
+
