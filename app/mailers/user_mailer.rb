@@ -13,4 +13,10 @@ class UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: "Your account had been declined"
   end
+
+  def destroy_account_email
+    @user = params[:user]
+
+    mail to: @user.email, subject: "Your account had been deleted"
+  end
 end
