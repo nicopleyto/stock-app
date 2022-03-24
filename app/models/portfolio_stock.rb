@@ -1,6 +1,6 @@
 class PortfolioStock < ApplicationRecord
     belongs_to :user
-    validates :total_quantity, numericality {greater_than_or_equal_to: 0}
+    validates :total_quantity, numericality: {greater_than_or_equal_to: 0, message: " to be sold must not exceed owned quantity"}
     include ApiAccessor
 
     def total_value
@@ -8,7 +8,7 @@ class PortfolioStock < ApplicationRecord
     end
 
     def purge_zero_quantity_stock
-        if self.total_quantity = 0
+        if self.total_quantity == 0
             self.destroy
         end
     end

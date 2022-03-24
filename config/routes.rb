@@ -5,7 +5,15 @@ Rails.application.routes.draw do
 
 
 
-  resources :portfolio_stocks
+  resources :portfolio_stocks do
+    member do
+      get 'buy'
+      get 'sell'
+      patch 'confirm_sell'
+    end
+  end
+
+
   resources :current_user_transactions, only: [:index, :show]
   resources :transactions, only: [:index, :show]
   resources :stocks, only: [:index, :show]

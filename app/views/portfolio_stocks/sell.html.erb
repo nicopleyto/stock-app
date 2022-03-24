@@ -1,4 +1,4 @@
-<%= form_with model: @portfolio_stock do |form| %>
+<%= form_with scope: :portfolio_stock, url: confirm_sell_portfolio_stock_path(@portfolio_stock), method: :patch do |form| %>
   <% if @portfolio_stock.errors.any? %>
     <% @portfolio_stock.errors.each do |error| %>
 
@@ -23,12 +23,12 @@
           </div>
 
           <div class="field form-group mb-3">
-            <%= form.label :total_quantity %>
-            <%= form.number_field :total_quantity, step: :any, :class => "form-control" %>
+            <%= form.label :sell_quantity %>
+            <%= form.number_field :total_quantity, step: :any, :min => 0.01, :class => "form-control" %>
           </div>
 
           <div class="actions d-grid mb-3 mt-4">
-            <%= form.submit "buy stock", :class => "btn btn-primary btn-login text-uppercase fw-bold"%>
+            <%= form.submit "sell stock", :class => "btn btn-primary btn-login text-uppercase fw-bold"%>
           </div>
 
         </div>

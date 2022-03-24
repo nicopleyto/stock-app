@@ -9,7 +9,7 @@ class PortfolioStocksController < ApplicationController
     @portfolio_stock = current_user.portfolio_stocks.find(params[:id])
   end
 
-  def edit #similar to edit action, set resource to be updated here (buy stock)
+  def buy #similar to edit action, set resource to be updated here (buy stock)
     stocksymbol = params[:stocksymbol]
     @portfolio_stock = current_user.portfolio_stocks.find_or_initialize_by(:symbol => stocksymbol) do |p|
       p.total_quantity = 0
@@ -26,7 +26,7 @@ class PortfolioStocksController < ApplicationController
     if @portfolio_stock.save
       redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
     else
-      render :edit
+      render :buy
     end
 
   end
@@ -37,14 +37,14 @@ class PortfolioStocksController < ApplicationController
     if @portfolio_stock.save
       redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
     else
-      render :edit
+      render :buy
     end
 
   end
 
   def sell
     stocksymbol = params[:stocksymbol]
-    @portfolio_stock = current_user.portfolio_stocks.find(:symbol => stocksymbol)
+    @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
   end
 
   def confirm_sell
@@ -54,7 +54,9 @@ class PortfolioStocksController < ApplicationController
     @portfolio_stock.total_quantity -= portfolio_stock_params[:total_quantity].to_d
 
     if @portfolio_stock.save
-      redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
+      redirect_to portfolio_stocks_path, notice: 'Stock was successfully sold.'
+      #create sell transaction
+      @portfolio_stock.purge_zero_quantity_stock
     else
       render :sell
     end

@@ -23,8 +23,8 @@
           </div>
 
           <div class="field form-group mb-3">
-            <%= form.label :total_quantity %>
-            <%= form.number_field :total_quantity, step: :any, :class => "form-control" %>
+            <%= form.label :buy_quantity %>
+            <%= form.number_field :total_quantity, step: :any, :min => 0.01, :class => "form-control" %>
           </div>
 
           <div class="actions d-grid mb-3 mt-4">
