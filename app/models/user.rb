@@ -10,6 +10,6 @@ class User < ApplicationRecord
   validates :state, presence: true
   STATE = ["Pending", "Declined", "Approved"]
 
-  has_many :transactions
-  has_many :portfolio_stocks
+  has_many :transactions, dependent: :destroy
+  has_many :portfolio_stocks, dependent: :destroy
 end
