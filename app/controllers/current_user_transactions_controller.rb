@@ -1,6 +1,6 @@
 class CurrentUserTransactionsController < ApplicationController
   def index
-    @transactions = current_user.transactions
+    @transactions = current_user.transactions.order(id: "DESC")
   end
 
   def show
