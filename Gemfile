@@ -60,3 +60,5 @@ gem 'devise'
 gem 'iex-ruby-client'
 
 gem 'mailjet', :git => 'https://github.com/mailjet/mailjet-gem.git'
+
+gem 'dotenv-rails', groups: [:development, :test]
