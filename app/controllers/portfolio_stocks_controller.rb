@@ -42,6 +42,24 @@ class PortfolioStocksController < ApplicationController
 
   end
 
+  def sell
+    stocksymbol = params[:stocksymbol]
+    @portfolio_stock = current_user.portfolio_stocks.find(:symbol => stocksymbol)
+  end
+
+  def confirm_sell
+    stocksymbol = portfolio_stock_params[:symbol]
+    @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
+
+    @portfolio_stock.total_quantity -= portfolio_stock_params[:total_quantity].to_d
+
+    if @portfolio_stock.save
+      redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
+    else
+      render :sell
+    end
+  end
+
   private
 
   def portfolio_stock_params
