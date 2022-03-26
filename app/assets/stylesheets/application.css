@@ -22,8 +22,16 @@
     color: black;
 }
 
+.card-effects-gold:hover{
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    background-color: #FFFFE0;
+    color: black;
+}
+
 .scroll::-webkit-scrollbar {
-    width: 9px;               /* width of the entire scrollbar */
+    width: 9px;    
+    height: 9px;           /* width of the entire scrollbar */
 }
 .scroll::-webkit-scrollbar-track {
     background: white;        /* color of the tracking area */

@@ -1,17 +1,54 @@
-<div class = "container">
-  <section class = "row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 g-4">
-        <div class = "col">
-            <div class="card h-100 w-100 my-3">
-
-                <%= @portfolio_stock.symbol %> 
+<div class="container card p-0 mx-auto mt-5 shadow mb-5 bg-body rounded" style="width: 32rem;">
+    <div class="card-header bg-dark text-center" style="--bs-bg-opacity: .75;">
+        <h4 class="mt-2 fw-bold text-white text-monospace">
+            <%= @portfolio_stock.symbol %> 
+        </h4> 
+        <p class="text-white">
+            <%= Stock.find_by(symbol: @portfolio_stock.symbol).corp_name%>
+        </p>
+        <span class="badge bg-dark rounded-pill p-2 position-absolute top-0 end-0 mt-2 me-2">
+            <%= @portfolio_stock.total_quantity %>
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="d-flex">
+            <p class="card-title fw-bold mx-3">
+                Latest Price:
+            </p>
+            <p class="fw-bold">
                 <%= @portfolio_stock.access_quote.latest_price %>
-                <%= @portfolio_stock.total_quantity %>
-                <%= @portfolio_stock.total_value%>
-
-                <%= link_to 'Buy Stock', buy_portfolio_stock_path(:stocksymbol => @portfolio_stock.symbol)%>
-                <%= link_to 'Sell Stock', sell_portfolio_stock_path(:stocksymbol => @portfolio_stock.symbol)%>
-                <%= link_to 'Back', portfolio_stocks_path %>
-
-            </div>
+            </p>
         </div>
+        <div class="d-flex">
+            <p class="card-title  fw-bold mx-3">
+                Total Value:
+            </p>
+            <p class="fw-bold"> 
+                <%= @portfolio_stock.total_value%>
+            </p>
+        </div>
+        <div class="d-flex">
+            <p class="card-title  fw-bold mx-3">
+                First Transaction:
+            </p>
+            <p class="text-dark", style="--bs-text-opacity: .75;"> 
+                <%= @portfolio_stock.created_at.strftime("%A, %B %d, %Y at %I:%M %p")%>
+            </p>
+        </div>
+        <div class="d-flex">
+            <p class="card-title  fw-bold mx-3">
+                Last Transaction:
+            </p>
+            <p class="text-dark", style="--bs-text-opacity: .75;"> 
+                <%= @portfolio_stock.updated_at.strftime("%A, %B %d, %Y at %I:%M %p")%>
+            </p>
+        </div>
+    </div>
+    <div class="card-footer btn-group">
+
+        <%= link_to 'Buy Stock', buy_portfolio_stock_path(:stocksymbol => @portfolio_stock.symbol), class: "btn btn-success"%>
+        <%= link_to 'Sell Stock', sell_portfolio_stock_path(:stocksymbol => @portfolio_stock.symbol), class: "btn btn-danger mx-2"%>
+        <%= link_to 'Back', portfolio_stocks_path, class: "btn btn-dark"%>
+        
+    </div>
 </div>
