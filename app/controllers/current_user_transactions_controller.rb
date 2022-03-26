@@ -2,7 +2,7 @@ class CurrentUserTransactionsController < ApplicationController
   before_action :approved_trader, only: [:index, :show]
 
   def index
-    @transactions = current_user.transactions
+    @transactions = current_user.transactions.order(id: "DESC")
   end
 
   def show
@@ -12,10 +12,10 @@ class CurrentUserTransactionsController < ApplicationController
   private
 
   def approved_trader
-    if current_user.where(role: "trader", state: "Approved")
-       return
+    if current_user.role == "trader" && current_user.state == "Approved"
+      return
     else
-       redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
+      redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
     end
   end
 end
