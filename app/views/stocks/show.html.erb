@@ -1,20 +1,41 @@
-<h1>Stock#show</h1>
-<p>Find me in app/views/stock/show.html.erb</p>
-
-<div class = "container">
-  <section class = "row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 g-4">
-        <div class = "col">
-            <div class="card h-100 w-100 my-3">
-        
-                <%= @stock.symbol %> 
-                <%= @stock.corp_name %>
+<div class="container card p-0 mx-auto mt-5 shadow mb-5 bg-body rounded" style="width: 32rem; min-height: 30rem; max-height: 35rem;">
+    <div class="card-header bg-dark text-center" style="--bs-bg-opacity: .75;">
+        <h4 class="mt-2 fw-bold text-white text-monospace">
+            <%= @stock.symbol %> 
+        </h4> 
+        <p class="text-white">
+            <%= @stock.corp_name %>
+        </p>
+        <%if @stock.access_quote.change_percent_s.include? "+" %>
+            <span class="badge bg-success rounded-pill p-2 position-absolute top-0 end-0 mt-3 me-3">
                 <%= @stock.access_quote.change_percent_s %>
+            </span> 
+        <% else %>
+            <span class="badge bg-danger rounded-pill p-2 position-absolute top-0 end-0 mt-3 me-3">
+                <%= @stock.access_quote.change_percent_s %>
+            </span> 
+        <% end %>
+    </div>
+    <div class="card-body p-4 overflow-auto scroll" style="min-height: 20rem; max-height: 25rem;">
+        <p style="text-align: justify; text-indent: 50px; font-size: 18px;">
+            <%= @stock.corp_description %>
+        </p>
+        <div class="d-flex position-absolute bottom-0 mb-5 bg-white" style="width: 95%">
+            <p class="card-title fw-bold">
+                Latest Price:
+            </p>
+            <p class="fw-bold mx-2">
                 <%= @stock.access_quote.latest_price%>
-                <%= @stock.corp_description %>
-
-                <%= link_to 'Buy Stock', buy_portfolio_stock_path(:stocksymbol => @stock.symbol)%>
-                <%= link_to 'Back', stocks_path %>
-
-            </div>
+            </p>
+            <p class="text-dark ps-3", style="--bs-text-opacity: 75;">
+                <%= Time.now.strftime(" %B %d at %I:%M %p")%>
+            </p>
         </div>
+    </div>
+    <div class="card-footer btn-group">
+
+        <%= link_to 'Buy Stock', buy_portfolio_stock_path(:stocksymbol => @stock.symbol), class: "btn btn-success "%>
+        <%= link_to 'Back', stocks_path, class: "btn btn-dark ms-3"%>
+        
+    </div>
 </div>
