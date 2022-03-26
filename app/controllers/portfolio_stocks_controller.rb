@@ -83,7 +83,7 @@ class PortfolioStocksController < ApplicationController
   end
   
   def approved_trader
-    if current_user.where(role: "trader", state: "Approved")
+    if current_user.role == "trader" && current_user.state == "Approved"
        return
     else
        redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
