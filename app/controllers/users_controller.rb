@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :verify_is_admin, only: [:index, :edit, :show, :create, :new]
-  before_action :approved_trader, only: []
+
 
   def index
     @users = User.all
@@ -47,14 +47,6 @@ class UsersController < ApplicationController
        return
     else
        redirect_to root_path, notice: "You must be an admin to perform this action."
-    end
-  end
-
-  def approved_trader
-    if current_user.where(role: "trader", state: "Approved")
-       return
-    else
-       redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
     end
   end
   

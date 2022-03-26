@@ -1,4 +1,6 @@
 class PortfolioStocksController < ApplicationController
+  before_action :approved_trader, only: [:show, :buy, :create, :sell, :confirm_sell]
+
   require "bigdecimal/util"
 
   def index
@@ -78,6 +80,14 @@ class PortfolioStocksController < ApplicationController
       :price_during_transaction => @portfolio_stock.access_quote.latest_price,
       :total_stock_amount => portfolio_stock_params[:total_quantity].to_d * @portfolio_stock.access_quote.latest_price
     )
+  end
+  
+  def approved_trader
+    if current_user.where(role: "trader", state: "Approved")
+       return
+    else
+       redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
+    end
   end
 
 end
