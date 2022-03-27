@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'balance/show'
   root 'home#index'
   devise_for :users, :path_prefix => 'devise'
   resources :users, only: [:index, :show, :edit, :update, :create, :new]
