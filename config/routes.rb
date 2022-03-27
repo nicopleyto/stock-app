@@ -13,6 +13,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :balance, only: [:show] do
+    member do
+      get 'withdraw'
+      get 'topup'
+      patch 'confirm_topup'
+      patch 'confirm_withdraw'
+    end
+  end
 
   resources :current_user_transactions, only: [:index, :show]
   resources :transactions, only: [:index, :show]
