@@ -48,8 +48,8 @@
             <li class="nav-item nav-link active">
                 Welcome, <%=current_user.email%>!
             </li>
-            <li class="nav-item nav-link active">
-                Balance: <%=current_user.balance%>
+            <li class="nav-item">
+                <%= link_to "Balance: #{current_user.balance}", balance_path(current_user), :class => "nav-link" %>
             </li>
             <li class="nav-item">
                 <%= link_to 'Edit Profile', edit_user_registration_path, :class => "nav-link" %>
