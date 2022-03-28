@@ -40,3 +40,80 @@
     background-color: black;    /* color of the scroll thumb */
     border-radius: 20px;       /* roundness of the scroll thumb */
 }
+
+@media screen and (min-width: 992px) { 
+    .responsive-stock-index{ width: 45rem;} 
+    .responsive-stocks{ 
+        min-height: 20rem; 
+        max-height: 35rem;
+    }
+    
+    .responsive-stock-show{ 
+        width: 32rem; 
+        min-height: 30rem; 
+        max-height: 35rem;
+    } 
+
+    .responsive-portfolio-index{ 
+        width: 152rem; 
+        height: 53rem;
+    } 
+
+    .responsive-portfolio-show{ 
+        width: 32rem;
+    } 
+    
+    .responsive-transactions-index{ 
+        width: 45% !important; 
+    } 
+
+    .responsive-transactions-show{ 
+        width: 25% !important;  
+    } 
+
+    .responsive-users{ 
+        width: 25% !important; 
+    } 
+
+    .responsive-request{ 
+        width: 35% !important; 
+    }
+
+ }
+
+@media screen and (max-width: 576px) { 
+    .responsive-stock-index{ 
+        width: 94vw;
+    }
+    .responsive-stocks{ 
+        min-height: 16rem;
+        max-height: 30rem;
+    }
+
+    .responsive-stock-show{ 
+        width: 94vw; 
+        min-height: 25rem; 
+        max-height: 32rem;} 
+    } 
+
+    .responsive-portfolio-index{ 
+        width: 94vw; 
+        height: 53rem;
+    }
+
+    .responsive-transactions-index{ 
+        width: 94%; 
+    } 
+
+    .responsive-transactions-show{ 
+        width: 94vw; 
+    } 
+
+    .responsive-users{ 
+        width: 94vw; 
+    } 
+
+    .responsive-request{ 
+        width: 94vw; 
+    }
+}
