@@ -10,8 +10,7 @@ class BalanceController < ApplicationController
   def confirm_topup
     @user.balance += balance_params[:balance].to_d
 
-    if @user.save
-      byebug
+    if @user.save!
       redirect_to root_path, notice: 'Top-up successful.'
     else
       render :topup
@@ -21,7 +20,7 @@ class BalanceController < ApplicationController
   def confirm_withdraw
     @user.balance -= balance_params[:balance].to_d
 
-    if @user.save
+    if @user.save!
       redirect_to root_path, notice: 'Withdrawal successful.'
     else
       render :withdraw
