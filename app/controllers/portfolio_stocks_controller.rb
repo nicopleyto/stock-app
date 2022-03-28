@@ -1,7 +1,7 @@
 class PortfolioStocksController < ApplicationController
-  before_action :approved_trader, only: [:show, :buy, :create, :sell, :confirm_sell]
-
   require "bigdecimal/util"
+  before_action :approved_trader, only: [:show, :buy, :create, :sell, :confirm_sell]
+  before_action :set_user, only: [:update, :create, :confirm_sell]
 
   def index
     @portfolio_stocks = current_user.portfolio_stocks
@@ -23,28 +23,40 @@ class PortfolioStocksController < ApplicationController
     stocksymbol = portfolio_stock_params[:symbol]
     @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
 
+
     @portfolio_stock.total_quantity += portfolio_stock_params[:total_quantity].to_d
+    deducted_amount = @portfolio_stock.access_quote.latest_price * portfolio_stock_params[:total_quantity].to_d
     
-    if @portfolio_stock.save
-      redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
-      create_transaction_record(true)
-    else
-      render :buy
+    ActiveRecord::Base.transaction do
+      if @portfolio_stock.save && @user.update!(:balance => @user.balance -= deducted_amount)
+        redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
+        create_transaction_record(true)
+    
+      else
+        render :buy
+      end
     end
+
 
   end
 
-  def create
+  def create 
     @portfolio_stock = current_user.portfolio_stocks.build(portfolio_stock_params)
+    deducted_amount = @portfolio_stock.access_quote.latest_price * portfolio_stock_params[:total_quantity].to_d
 
-    if @portfolio_stock.save
-      redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
-      create_transaction_record(true)
-    else
-      render :buy
+  
+    ActiveRecord::Base.transaction do
+      if @portfolio_stock.save && @user.update!(:balance => @user.balance -= deducted_amount)
+        redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
+        create_transaction_record(true)
+      else
+        render :buy
+      end
     end
 
   end
+
+
 
   def sell
     stocksymbol = params[:stocksymbol]
@@ -55,14 +67,20 @@ class PortfolioStocksController < ApplicationController
     stocksymbol = portfolio_stock_params[:symbol]
     @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
 
-    @portfolio_stock.total_quantity -= portfolio_stock_params[:total_quantity].to_d
+    ActiveRecord::Base.transaction do
+      @portfolio_stock.total_quantity -= portfolio_stock_params[:total_quantity].to_d
+      added_amount = @portfolio_stock.access_quote.latest_price * portfolio_stock_params[:total_quantity].to_d
 
-    if @portfolio_stock.save
-      redirect_to portfolio_stocks_path, notice: 'Stock was successfully sold.'
-      create_transaction_record(false)
-      @portfolio_stock.purge_zero_quantity_stock
-    else
-      render :sell
+      #@user.balance += added_amount
+      
+
+      if @portfolio_stock.save && @user.update(:balance => @user.balance += added_amount)
+        redirect_to portfolio_stocks_path, notice: 'Stock was successfully sold.'
+        create_transaction_record(false)
+        @portfolio_stock.purge_zero_quantity_stock
+      else
+        render :sell
+      end
     end
   end
 
@@ -88,6 +106,10 @@ class PortfolioStocksController < ApplicationController
     else
        redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
     end
+  end
+
+  def set_user
+    @user = current_user
   end
 
 end

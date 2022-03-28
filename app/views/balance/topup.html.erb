@@ -1,6 +1,6 @@
-<%= form_with scope: :user, url: confirm_topup_balance_path(current_user), method: :patch do |form| %>
-  <% if current_user.errors.any? %>
-    <% current_user.errors.each do |error| %>
+<%= form_with scope: :user, url: confirm_topup_balance_path(@user), method: :patch do |form| %>
+  <% if @user.errors.any? %>
+    <% @user.errors.each do |error| %>
 
       <div class="container">
         <div class="alert alert-danger alert-dismissible fade show mx-auto col-10 text-center mb-1 mt-4" role="alert">
