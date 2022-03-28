@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'stocks#index'
   devise_for :users, :path_prefix => 'devise'
   resources :users, only: [:index, :show, :edit, :update, :create, :new]
-
-
 
   resources :portfolio_stocks do
     member do
