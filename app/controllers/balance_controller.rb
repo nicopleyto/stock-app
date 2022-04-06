@@ -18,12 +18,11 @@ class BalanceController < ApplicationController
   end
 
   def confirm_withdraw
-    @user.balance -= balance_params[:balance].to_d
-
-    if @user.save!
-      redirect_to root_path, notice: 'Withdrawal successful.'
+    if balance_params[:balance].to_d < @user.balance && @user.save 
+      @user.balance -= balance_params[:balance].to_d
+      redirect_to portfolio_stocks_path, notice: 'Withdrawal successful.'
     else
-      render :withdraw
+      redirect_to withdraw_balance_path, alert: "Withdrawal failed. Please input correct amount."
     end
   end
 
@@ -39,9 +38,9 @@ class BalanceController < ApplicationController
 
   def approved_trader
     if current_user.role == "trader" && current_user.state == "Approved"
-       return
+      return
     else
-       redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
+      redirect_to portfolio_stocks_path, notice: "Please wait until your application has been approved before doing this action."
     end
   end
 end
