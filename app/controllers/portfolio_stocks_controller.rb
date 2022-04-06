@@ -20,43 +20,35 @@ class PortfolioStocksController < ApplicationController
   end
 
   def update
-    stocksymbol = portfolio_stock_params[:symbol]
-    @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => stocksymbol)
-
-
-    @portfolio_stock.total_quantity += portfolio_stock_params[:total_quantity].to_d
+    @portfolio_stock = current_user.portfolio_stocks.find_by(:symbol => portfolio_stock_params[:symbol])
+    new_quantity = @portfolio_stock.total_quantity + portfolio_stock_params[:total_quantity].to_d
     deducted_amount = @portfolio_stock.access_quote.latest_price * portfolio_stock_params[:total_quantity].to_d
-    
+
     ActiveRecord::Base.transaction do
-      if @portfolio_stock.save && @user.update!(:balance => @user.balance -= deducted_amount)
-        redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
-        create_transaction_record(true)
-    
-      else
-        render :buy
-      end
+      @user.update!(:balance => @user.balance -= deducted_amount)
+      @portfolio_stock.update!(:total_quantity => new_quantity)
+      redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
+      create_transaction_record(true)
     end
 
-
+    rescue ActiveRecord::RecordInvalid
+    redirect_to buy_portfolio_stock_path(:stocksymbol => @portfolio_stock.symbol), alert: "Transaction failed. Please input correct quantity."
   end
 
   def create 
     @portfolio_stock = current_user.portfolio_stocks.build(portfolio_stock_params)
     deducted_amount = @portfolio_stock.access_quote.latest_price * portfolio_stock_params[:total_quantity].to_d
 
-  
     ActiveRecord::Base.transaction do
-      if @portfolio_stock.save && @user.update!(:balance => @user.balance -= deducted_amount)
-        redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
-        create_transaction_record(true)
-      else
-        render :buy
-      end
+      @portfolio_stock.save
+      @user.update!(:balance => @user.balance -= deducted_amount)
+      redirect_to @portfolio_stock, notice: 'Stock was successfully bought.'
+      create_transaction_record(true)
     end
 
+    rescue ActiveRecord::RecordInvalid
+    redirect_to portfolio_stocks_path, alert: "Transaction failed. Please input correct quantity."
   end
-
-
 
   def sell
     stocksymbol = params[:stocksymbol]
@@ -70,9 +62,6 @@ class PortfolioStocksController < ApplicationController
     ActiveRecord::Base.transaction do
       @portfolio_stock.total_quantity -= portfolio_stock_params[:total_quantity].to_d
       added_amount = @portfolio_stock.access_quote.latest_price * portfolio_stock_params[:total_quantity].to_d
-
-      #@user.balance += added_amount
-      
 
       if @portfolio_stock.save && @user.update(:balance => @user.balance += added_amount)
         redirect_to portfolio_stocks_path, notice: 'Stock was successfully sold.'
@@ -102,14 +91,13 @@ class PortfolioStocksController < ApplicationController
   
   def approved_trader
     if current_user.role == "trader" && current_user.state == "Approved"
-       return
+      return
     else
-       redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
+      redirect_to root_path, notice: "Please wait until your application has been approved before doing this action."
     end
   end
 
   def set_user
     @user = current_user
   end
-
 end
